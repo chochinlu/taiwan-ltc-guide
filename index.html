@@ -1,1 +1,996 @@
-placeholder
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台灣長照照護實戰指南 — 當家人突然需要照顧</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f5;
+  --text: #2c2420;
+  --text-light: #6b5e54;
+  --accent: #c45d3e;
+  --accent-light: #f0d5cc;
+  --accent-dark: #9a3a20;
+  --green: #3a7d5c;
+  --green-light: #d4eddf;
+  --blue: #3d6b8e;
+  --blue-light: #d4e4ef;
+  --yellow: #d4a72c;
+  --yellow-light: #fdf3d7;
+  --red: #c0392b;
+  --red-light: #fadbd8;
+  --card: #ffffff;
+  --border: #e8e0d8;
+  --shadow: 0 2px 12px rgba(44,36,32,0.06);
+  --shadow-lg: 0 8px 32px rgba(44,36,32,0.1);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Hero ─── */
+.hero {
+  background: linear-gradient(135deg, #2c2420 0%, #4a3830 50%, #6b4f3e 100%);
+  color: #fff;
+  padding: 80px 24px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 70%, rgba(196,93,62,0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(58,125,92,0.1) 0%, transparent 50%);
+  animation: heroGlow 15s ease-in-out infinite;
+}
+@keyframes heroGlow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-3%, 3%); }
+}
+.hero-content { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(4px);
+}
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.hero p {
+  font-size: 17px;
+  opacity: 0.85;
+  max-width: 560px;
+  margin: 0 auto 32px;
+  line-height: 1.8;
+}
+.hero-stat-row {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat .num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+}
+.hero-stat .label {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* ─── Layout ─── */
+.container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+section {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--border);
+}
+section:last-of-type { border-bottom: none; }
+
+.section-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.section-desc {
+  color: var(--text-light);
+  font-size: 15px;
+  margin-bottom: 32px;
+  max-width: 640px;
+}
+
+/* ─── Cards ─── */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 28px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: var(--shadow-lg); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.card-icon.green { background: var(--green-light); }
+.card-icon.blue { background: var(--blue-light); }
+.card-icon.red { background: var(--red-light); }
+.card-icon.yellow { background: var(--yellow-light); }
+.card-icon.accent { background: var(--accent-light); }
+
+.card h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* ─── Comparison Grid ─── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 640px) {
+  .compare-grid { grid-template-columns: 1fr; }
+}
+.compare-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.compare-card.highlight { border-color: var(--accent); }
+.compare-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.compare-card .subtitle {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+.compare-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.compare-item:last-child { border-bottom: none; }
+.compare-item .label { color: var(--text-light); }
+.compare-item .value { font-weight: 700; text-align: right; }
+
+/* ─── CMS Table ─── */
+.cms-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.cms-table th {
+  background: #3d3530;
+  color: #fff;
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.cms-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+}
+.cms-table tr:last-child td { border-bottom: none; }
+.cms-table tr.active {
+  background: var(--accent-light);
+}
+.cms-table tr.active td { font-weight: 700; }
+.cms-table .amount { font-family: 'Noto Serif TC', serif; font-weight: 700; color: var(--accent-dark); }
+
+/* ─── Alert Boxes ─── */
+.alert {
+  border-radius: var(--radius-sm);
+  padding: 18px 22px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  display: flex;
+  gap: 12px;
+}
+.alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.alert.danger { background: var(--red-light); border-left: 4px solid var(--red); }
+.alert.warning { background: var(--yellow-light); border-left: 4px solid var(--yellow); }
+.alert.success { background: var(--green-light); border-left: 4px solid var(--green); }
+.alert.info { background: var(--blue-light); border-left: 4px solid var(--blue); }
+
+/* ─── Pitfall Cards ─── */
+.pitfall {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.pitfall::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--red);
+}
+.pitfall h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pitfall .correct {
+  background: var(--green-light);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-size: 14px;
+}
+.pitfall .correct strong { color: var(--green); }
+
+/* ─── Steps ─── */
+.step-list { counter-reset: steps; }
+.step {
+  display: flex;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  counter-increment: steps;
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.step-content h4 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+.step-content p { font-size: 14px; color: var(--text-light); }
+.step-content .tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.tag.urgent { background: var(--red-light); color: var(--red); }
+.tag.normal { background: var(--green-light); color: var(--green); }
+.tag.info { background: var(--blue-light); color: var(--blue); }
+
+/* ─── Calculator ─── */
+.calc-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+.calc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.calc-row label {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+}
+.calc-row input, .calc-row select {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-family: inherit;
+  width: 140px;
+  background: var(--bg);
+}
+.calc-row input:focus, .calc-row select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+.calc-result {
+  background: linear-gradient(135deg, #2c2420, #4a3830);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.calc-result .label { font-size: 14px; opacity: 0.8; }
+.calc-result .amount {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #f0d5cc;
+}
+
+/* ─── Checklist ─── */
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s;
+}
+.checklist-item:last-child { border-bottom: none; }
+.checklist-box {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  margin-top: 2px;
+}
+.checklist-item.checked .checklist-box {
+  background: var(--green);
+  border-color: var(--green);
+}
+.checklist-item.checked .checklist-box::after {
+  content: '✓';
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+.checklist-item.checked .checklist-text {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+.checklist-text { font-size: 15px; }
+.checklist-text .sub { display: block; font-size: 13px; color: var(--text-light); margin-top: 2px; }
+
+/* ─── Nav ─── */
+.toc {
+  position: sticky;
+  top: 0;
+  background: rgba(250,248,245,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.toc-inner {
+  display: flex;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 0;
+}
+.toc a {
+  display: block;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--text-light);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.toc a:hover, .toc a.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ─── Footer ─── */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 13px;
+  color: var(--text-light);
+}
+footer a { color: var(--accent); text-decoration: none; }
+
+/* ─── Utils ─── */
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mb-8 { margin-bottom: 8px; }
+.text-sm { font-size: 14px; }
+.text-xs { font-size: 12px; color: var(--text-light); }
+.bold { font-weight: 700; }
+.accent { color: var(--accent); }
+.green { color: var(--green); }
+
+@media (max-width: 640px) {
+  .hero { padding: 60px 20px 40px; }
+  .hero h1 { font-size: 26px; }
+  .hero-stat-row { gap: 20px; }
+  .hero-stat .num { font-size: 28px; }
+  .card { padding: 20px; }
+  .calc-row { flex-direction: column; align-items: stretch; }
+  .calc-row input, .calc-row select { width: 100%; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .toc a { padding: 12px 12px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">實戰經驗整理 · 2026 年版</div>
+    <h1>當家人突然需要照顧<br>台灣長照制度實戰指南</h1>
+    <p>從真實案例出發，把複雜的長照制度拆解成你能立刻行動的步驟。不是官方說明書，是過來人的筆記。</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <span class="num">8</span>
+        <span class="label">失能等級</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">42</span>
+        <span class="label">喘息年度組數</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">16%</span>
+        <span class="label">一般戶部分負擔</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOC -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#overview">全貌</a>
+    <a href="#two-buckets">兩桶金</a>
+    <a href="#cms">等級額度</a>
+    <a href="#services">服務項目</a>
+    <a href="#respite">喘息服務</a>
+    <a href="#pitfalls">常見陷阱</a>
+    <a href="#emergency">緊急步驟</a>
+    <a href="#calculator">費用計算</a>
+    <a href="#checklist">檢查清單</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- Section: Overview -->
+<section id="overview">
+  <div class="section-label">先搞懂全貌</div>
+  <div class="section-title">長照 3.0 制度，其實就這三件事</div>
+  <div class="section-desc">不管你家人是跌倒、中風、失智還是老化，長照制度的核心邏輯都一樣。</div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon green">📋</div>
+      <h3>第一步：評估等級（CMS 第 2～8 級）</h3>
+    </div>
+    <p class="text-sm">撥打 1966 長照專線，政府派照管專員到府評估你家人的失能程度。等級越高，每月可用的額度越多。<strong>這一步沒做，後面什麼服務都用不了。</strong></p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon blue">💰</div>
+      <h3>第二步：拿到兩筆獨立的額度</h3>
+    </div>
+    <p class="text-sm">評估完會拿到兩筆錢，一筆是<strong>每月居家服務額度</strong>（月結，每月重算），另一筆是<strong>年度喘息服務額度</strong>（年結，42 組/年）。兩筆分開算、互不影響。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon accent">🏠</div>
+      <h3>第三步：跟長照機構安排服務</h3>
+    </div>
+    <p class="text-sm">機構會根據你的額度和需求排服務。你只需要付 <strong>16% 的部分負擔</strong>（一般戶），政府補助 84%。低收入戶免費，中低收入戶只付 5%。</p>
+  </div>
+</section>
+
+<!-- Section: Two Buckets -->
+<section id="two-buckets">
+  <div class="section-label">最重要的觀念</div>
+  <div class="section-title">居家服務 vs 喘息服務：兩桶完全不同的金</div>
+  <div class="section-desc">很多人搞混這兩個，結果不是浪費額度就是額度不夠用。</div>
+
+  <div class="compare-grid">
+    <div class="compare-card highlight">
+      <h3>🏠 居家服務</h3>
+      <div class="subtitle">日常照護的主力</div>
+      <div class="compare-item"><span class="label">額度週期</span><span class="value">每月重算</span></div>
+      <div class="compare-item"><span class="label">額度來源</span><span class="value">依 CMS 等級</span></div>
+      <div class="compare-item"><span class="label">範例（第 4 級）</span><span class="value">18,580 元/月</span></div>
+      <div class="compare-item"><span class="label">用途</span><span class="value">備餐、洗澡、家務…</span></div>
+      <div class="compare-item"><span class="label">用不完？</span><span class="value accent">月底歸零，不累積</span></div>
+      <div class="compare-item"><span class="label">部分負擔</span><span class="value">一般戶 16%</span></div>
+    </div>
+    <div class="compare-card">
+      <h3>😤 喘息服務</h3>
+      <div class="subtitle">主要照顧者需要休息時用</div>
+      <div class="compare-item"><span class="label">額度週期</span><span class="value accent">年度總額</span></div>
+      <div class="compare-item"><span class="label">總量</span><span class="value">42 組/年</span></div>
+      <div class="compare-item"><span class="label">每組時長</span><span class="value">2 小時</span></div>
+      <div class="compare-item"><span class="label">每組費用</span><span class="value">770 元（自付 123）</span></div>
+      <div class="compare-item"><span class="label">服務時間</span><span class="value accent">最晚到 22:00</span></div>
+      <div class="compare-item"><span class="label">年度起算</span><span class="value accent">非曆年制</span></div>
+    </div>
+  </div>
+
+  <div class="alert warning mt-24">
+    <span class="alert-icon">⚠️</span>
+    <div><strong>關鍵差異：</strong>居家服務每月用不完就歸零，所以不用省。喘息服務是整年的額度，42 組用完就沒了，要精打細算。而且喘息年度不是從 1 月開始算，是從你開始使用服務那天起算。</div>
+  </div>
+</section>
+
+<!-- Section: CMS Table -->
+<section id="cms">
+  <div class="section-label">額度速查</div>
+  <div class="section-title">失能等級與每月補助額度</div>
+  <div class="section-desc">等級越高，代表失能程度越重，每月可用額度越多。</div>
+
+  <table class="cms-table">
+    <thead>
+      <tr><th>CMS 等級</th><th>每月補助額度</th><th>一般戶自付（16%）</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>第 2 級</td><td class="amount">10,020 元</td><td>1,603 元</td></tr>
+      <tr><td>第 3 級</td><td class="amount">15,460 元</td><td>2,474 元</td></tr>
+      <tr class="active"><td><strong>第 4 級</strong></td><td class="amount">18,580 元</td><td>2,973 元</td></tr>
+      <tr><td>第 5 級</td><td class="amount">24,100 元</td><td>3,856 元</td></tr>
+      <tr><td>第 6 級</td><td class="amount">28,070 元</td><td>4,491 元</td></tr>
+      <tr><td>第 7 級</td><td class="amount">32,090 元</td><td>5,134 元</td></tr>
+      <tr><td>第 8 級</td><td class="amount">36,180 元</td><td>5,789 元</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert info mt-16">
+    <span class="alert-icon">💡</span>
+    <div>額度不是直接給你現金，而是你可以「消費」的服務上限。每項服務有固定單價，加總不超過月額度即可。</div>
+  </div>
+</section>
+
+<!-- Section: Services -->
+<section id="services">
+  <div class="section-label">居家服務項目</div>
+  <div class="section-title">常用的居家服務與費用</div>
+  <div class="section-desc">以下是最常用的服務項目。記得，這些走的是每月額度，跟喘息無關。</div>
+
+  <div class="card">
+    <table style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr style="border-bottom:2px solid var(--border);">
+          <th style="text-align:left; padding:10px 0; font-size:13px; color:var(--text-light);">代碼</th>
+          <th style="text-align:left; padding:10px 0; font-size:13px; color:var(--text-light);">服務項目</th>
+          <th style="text-align:right; padding:10px 0; font-size:13px; color:var(--text-light);">單價</th>
+          <th style="text-align:right; padding:10px 0; font-size:13px; color:var(--text-light);">自付 16%</th>
+          <th style="text-align:right; padding:10px 0; font-size:13px; color:var(--text-light);">備註</th>
+        </tr>
+      </thead>
+      <tbody id="serviceTable">
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert success mt-16">
+    <span class="alert-icon">✅</span>
+    <div><strong>省錢技巧：</strong>如果月額度有剩餘，可以加掛「BA20 陪伴服務」等項目。用不完的額度月底歸零，不如多排一些服務。</div>
+  </div>
+</section>
+
+<!-- Section: Respite -->
+<section id="respite">
+  <div class="section-label">最容易搞錯的</div>
+  <div class="section-title">喘息服務：你必須知道的真相</div>
+  <div class="section-desc">喘息服務看起來很好，但有很多限制，不了解的話會踩大坑。</div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon yellow">⏰</div>
+      <h3>42 組用起來比你想得快</h3>
+    </div>
+    <p class="text-sm">如果每天排 08:00～22:00 = 7 組，<strong>42 組只能撐 6 天</strong>。如果每天用 3 組，可以撐 14 天。所以要根據需求精算，不要第一週就燒光。</p>
+    <div class="alert warning mt-16">
+      <span class="alert-icon">⚠️</span>
+      <div>喘息服務<strong>最晚只到 22:00</strong>！22:00 到隔天早上的照護要另外安排自費看護或家人輪班。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon red">👷</div>
+      <h3>人力不一定排得到</h3>
+    </div>
+    <p class="text-sm">喘息是「非常態班」，照服員原本都有排班了。除非剛好有新人還沒有班，否則不一定排得到。<strong>越南外傭過年期間更是整個地區都找不到人。</strong></p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon green">📅</div>
+      <h3>年度不是 1～12 月</h3>
+    </div>
+    <p class="text-sm">喘息的 42 組年度額度，不是每年 1 月 1 日重算。是從你<strong>開始使用服務的那天起算一年</strong>。所以要問清楚你的起算日。</p>
+  </div>
+</section>
+
+<!-- Section: Pitfalls -->
+<section id="pitfalls">
+  <div class="section-label">血淚經驗</div>
+  <div class="section-title">5 個常見陷阱</div>
+  <div class="section-desc">從實際照護經驗中學到的教訓，幫你少走冤枉路、少花冤枉錢。</div>
+
+  <div class="pitfall">
+    <h4>🚨 陷阱一：全自費走機構</h4>
+    <p class="text-sm">喘息額度用完後，如果繼續透過機構安排全自費，平日一天要 <strong>6,000 元</strong>（250/時 × 24hr），假日 <strong>8,400 元</strong>。</p>
+    <div class="correct"><strong>✅ 正確做法：</strong>直接跟看護談。全天 3,200/天、晚班 1,500/晚。不用簽約、不用跑流程。差一倍以上！</div>
+  </div>
+
+  <div class="pitfall">
+    <h4>🚨 陷阱二：以為喘息可以 24 小時</h4>
+    <p class="text-sm">喘息服務最晚到 22:00，不是 24 小時制。很多人以為排了喘息就不用管晚上，結果 22:00 以後沒人顧。</p>
+    <div class="correct"><strong>✅ 正確做法：</strong>白天喘息（到 22:00）+ 晚上自費看護或家人輪班。兩段式安排。</div>
+  </div>
+
+  <div class="pitfall">
+    <h4>🚨 陷阱三：BA20 陪伴服務當全天替代</h4>
+    <p class="text-sm">BA20 陪伴服務聽起來像「有人來陪一整天」，但其實<strong>一次只有 30 分鐘</strong>。整月最多排 21 組也只有 10.5 小時。</p>
+    <div class="correct"><strong>✅ 正確定位：</strong>BA20 是「定時巡視」，不是全天看顧的替代方案。適合媽媽恢復較好時，中間有人來確認安全。</div>
+  </div>
+
+  <div class="pitfall">
+    <h4>🚨 陷阱四：月額度省著用</h4>
+    <p class="text-sm">居家服務的月額度用不完就歸零。很多人怕花太多而省著用，結果白白浪費。</p>
+    <div class="correct"><strong>✅ 正確做法：</strong>算清楚剩餘額度，加掛「安全看視」「陪伴服務」「協助排泄」等項目。用到接近額度上限。</div>
+  </div>
+
+  <div class="pitfall">
+    <h4>🚨 陷阱五：沒提前確認喘息人力</h4>
+    <p class="text-sm">以為打電話說「我要用喘息」就有人來。實際上喘息是非常態班，要提前跟機構確認有沒有人可以接。</p>
+    <div class="correct"><strong>✅ 正確做法：</strong>出院前就跟機構確認人力，同時準備備案（家人輪班、私人看護）。多管道並行。</div>
+  </div>
+</section>
+
+<!-- Section: Emergency -->
+<section id="emergency">
+  <div class="section-label">緊急行動指南</div>
+  <div class="section-title">家人突然住院，你要做的 7 件事</div>
+  <div class="section-desc">按照優先順序，一件一件處理。</div>
+
+  <div class="step-list">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>確認長照等級和現有服務</h4>
+        <p>如果家人已經有長照服務 → 確認等級、月額度、喘息剩餘組數。如果沒有 → 立刻打 <strong>1966</strong> 申請評估。</p>
+        <span class="tag urgent">第一時間</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>聯繫長照機構，問清楚喘息能不能排到人</h4>
+        <p>不要假設有人可以來。問清楚：有沒有人力、最快什麼時候開始、可以排幾組/天。</p>
+        <span class="tag urgent">住院第一天</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>同步聯繫私人看護</h4>
+        <p>不要等喘息確認才找看護。聯繫家人信任的看護問可排時間、費用。全天約 3,200/天、晚班約 1,500/晚。</p>
+        <span class="tag urgent">住院第一天</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>家人排班輪值</h4>
+        <p>跟兄弟姊妹、配偶討論誰哪天可以顧。連續天數的人白天也顧，省喘息。週末全天自己來。</p>
+        <span class="tag normal">出院前確認</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>居家環境安全改造</h4>
+        <p>床邊便盆椅（最重要）、小夜燈、浴室扶手、常用物品移到好手可及之處。出院前搞定。</p>
+        <span class="tag normal">出院前完成</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h4>精算費用，制定分階段方案</h4>
+        <p>出院頭幾天 = 最高規格。之後逐步降級。算清楚喘息組數消耗、自費晚班支出、月額度剩餘可加掛什麼。</p>
+        <span class="tag info">持續調整</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">7</div>
+      <div class="step-content">
+        <h4>建立照護排班表，讓所有人都看得到</h4>
+        <p>用 Notion、Google Sheets 或任何共用工具，把每天白天 + 晚上的安排列出來。誰負責、什麼服務、費用多少，一目了然。</p>
+        <span class="tag info">持續更新</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: Calculator -->
+<section id="calculator">
+  <div class="section-label">費用試算</div>
+  <div class="section-title">喘息服務費用計算機</div>
+  <div class="section-desc">輸入你的使用天數和每天組數，快速算出費用和剩餘額度。</div>
+
+  <div class="calc-wrap">
+    <div class="calc-row">
+      <label>每天使用喘息組數</label>
+      <select id="calcGroups" onchange="calculate()">
+        <option value="3">3 組（6 小時）</option>
+        <option value="5">5 組（10 小時）</option>
+        <option value="7" selected>7 組（14 小時，到 22:00）</option>
+      </select>
+    </div>
+    <div class="calc-row">
+      <label>使用天數</label>
+      <input type="number" id="calcDays" value="3" min="1" max="42" onchange="calculate()" oninput="calculate()">
+    </div>
+    <div class="calc-row">
+      <label>晚班自費看護（元/晚）</label>
+      <input type="number" id="calcNight" value="1500" min="0" step="100" onchange="calculate()" oninput="calculate()">
+    </div>
+    <div class="calc-row">
+      <label>身分別</label>
+      <select id="calcIdentity" onchange="calculate()">
+        <option value="0.16">一般戶（16%）</option>
+        <option value="0.05">中低收入戶（5%）</option>
+        <option value="0">低收入戶（0%）</option>
+      </select>
+    </div>
+
+    <div id="calcOutput"></div>
+  </div>
+</section>
+
+<!-- Section: Checklist -->
+<section id="checklist">
+  <div class="section-label">行動清單</div>
+  <div class="section-title">出院前必做檢查清單</div>
+  <div class="section-desc">點擊打勾，追蹤進度。</div>
+
+  <div class="card" id="checklistContainer"></div>
+</section>
+
+</div>
+
+<footer>
+  <p>本指南根據 2026 年台灣長照 3.0 制度與實際照護經驗整理</p>
+  <p class="mt-16">費用與規定可能隨政策調整，請以各地長照機構確認為準</p>
+</footer>
+
+<script>
+// ─── Service Table ───
+const services = [
+  { code: 'BA05', name: '餐食照顧（備餐）', price: 310, note: '' },
+  { code: 'BA07', name: '協助沐浴及洗頭', price: 325, note: '' },
+  { code: 'BA15-1', name: '家務協助（自用）', price: 195, note: '獨居' },
+  { code: 'BA02', name: '基本日常照顧', price: 195, note: '移位、如廁、服藥' },
+  { code: 'BA18', name: '安全看視', price: 200, note: '陪伴看視安全' },
+  { code: 'BA20', name: '陪伴服務', price: 175, note: '⚠️ 一次僅 30 分鐘' },
+  { code: 'BA24', name: '協助排泄', price: 220, note: '' },
+  { code: 'BA14', name: '陪同就醫', price: 685, note: '單價高' },
+  { code: 'BA01', name: '基本身體清潔', price: 260, note: '' },
+  { code: '喘息', name: '喘息服務', price: 770, note: '一組 2 小時' },
+];
+
+const stb = document.getElementById('serviceTable');
+services.forEach(s => {
+  const self = Math.ceil(s.price * 0.16);
+  stb.innerHTML += `<tr style="border-bottom:1px solid var(--border);">
+    <td style="padding:10px 0; font-size:13px; color:var(--text-light);">${s.code}</td>
+    <td style="padding:10px 0; font-size:14px; font-weight:500;">${s.name}</td>
+    <td style="padding:10px 0; font-size:14px; text-align:right; font-weight:700;">${s.price} 元</td>
+    <td style="padding:10px 0; font-size:14px; text-align:right; color:var(--accent);">${self} 元</td>
+    <td style="padding:10px 0; font-size:12px; text-align:right; color:var(--text-light);">${s.note}</td>
+  </tr>`;
+});
+
+// ─── Calculator ───
+function calculate() {
+  const groups = parseInt(document.getElementById('calcGroups').value);
+  const days = parseInt(document.getElementById('calcDays').value) || 0;
+  const night = parseInt(document.getElementById('calcNight').value) || 0;
+  const rate = parseFloat(document.getElementById('calcIdentity').value);
+
+  const totalGroups = groups * days;
+  const remaining = Math.max(0, 42 - totalGroups);
+  const respiteCost = Math.ceil(770 * rate) * totalGroups;
+  const nightCost = night * days;
+  const totalCost = respiteCost + nightCost;
+
+  document.getElementById('calcOutput').innerHTML = `
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-top:20px;">
+      <div class="calc-result">
+        <div><div class="label">消耗喘息組數</div><div class="amount">${totalGroups} 組</div></div>
+      </div>
+      <div class="calc-result">
+        <div><div class="label">剩餘組數</div><div class="amount" style="color:${remaining <= 7 ? '#ff6b6b' : '#7bed9f'}">${remaining} 組</div></div>
+      </div>
+      <div class="calc-result">
+        <div><div class="label">喘息自付</div><div class="amount">${respiteCost.toLocaleString()} 元</div></div>
+      </div>
+      <div class="calc-result">
+        <div><div class="label">晚班自費</div><div class="amount">${nightCost.toLocaleString()} 元</div></div>
+      </div>
+    </div>
+    <div class="calc-result" style="margin-top:12px; background:linear-gradient(135deg, var(--accent-dark), var(--accent));">
+      <div><div class="label">口袋總支出</div></div>
+      <div class="amount" style="font-size:36px; color:#fff;">${totalCost.toLocaleString()} 元</div>
+    </div>
+    ${totalGroups > 42 ? '<div class="alert danger mt-16"><span class="alert-icon">🚨</span><div>超過年度 42 組上限！超出的 ' + (totalGroups - 42) + ' 組需要全自費（直接跟看護談，不走機構）。</div></div>' : ''}
+    ${remaining <= 7 && remaining > 0 ? '<div class="alert warning mt-16"><span class="alert-icon">⚠️</span><div>剩餘組數偏低，後續可能需要轉自費。建議提前聯繫私人看護做備案。</div></div>' : ''}
+  `;
+}
+calculate();
+
+// ─── Checklist ───
+const checkItems = [
+  { text: '確認長照等級（CMS 幾級）和月額度', sub: '撥打 1966 或問現有機構' },
+  { text: '確認喘息服務年度起始日和剩餘組數', sub: '42 組是從何時起算的？用了幾組？' },
+  { text: '聯繫長照機構，確認喘息能不能排到人', sub: '非常態班，不一定有人可接' },
+  { text: '聯繫私人看護（燕蓉等），確認可排時間和費用', sub: '全天約 3,200/天、晚班約 1,500/晚' },
+  { text: '跟家人討論輪班安排', sub: '誰哪天可以白天顧？晚上顧？連續天數？' },
+  { text: '購買床邊便盆椅', sub: '半夜頻尿 + 單手受傷 = 高跌倒風險' },
+  { text: '居家安全改造：小夜燈、浴室扶手', sub: '走道、廁所、浴室' },
+  { text: '常用物品移到好手可及之處', sub: '水杯、手機、遙控器、藥物' },
+  { text: '手機設定緊急聯絡快捷鍵', sub: '萬一獨處時有狀況' },
+  { text: '建立照護排班表（白天+晚上）', sub: '讓所有家人都看得到' },
+  { text: '精算費用：喘息消耗 + 自費晚班 + 月額度剩餘', sub: '分階段規劃，前重後輕' },
+  { text: '確認全自費時直接跟看護談，不走機構', sub: '機構全自費是看護的兩倍價格' },
+];
+
+const clContainer = document.getElementById('checklistContainer');
+checkItems.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.className = 'checklist-item';
+  div.innerHTML = `
+    <div class="checklist-box"></div>
+    <div class="checklist-text">${item.text}<span class="sub">${item.sub}</span></div>
+  `;
+  div.addEventListener('click', () => {
+    div.classList.toggle('checked');
+    saveChecklist();
+  });
+  clContainer.appendChild(div);
+});
+
+function saveChecklist() {
+  const states = [...document.querySelectorAll('.checklist-item')].map(el => el.classList.contains('checked'));
+  try { localStorage.setItem('ltc-checklist', JSON.stringify(states)); } catch(e) {}
+}
+function loadChecklist() {
+  try {
+    const states = JSON.parse(localStorage.getItem('ltc-checklist'));
+    if (states) {
+      document.querySelectorAll('.checklist-item').forEach((el, i) => {
+        if (states[i]) el.classList.add('checked');
+      });
+    }
+  } catch(e) {}
+}
+loadChecklist();
+
+// ─── TOC active state ───
+const tocLinks = document.querySelectorAll('.toc a');
+const sections = document.querySelectorAll('section[id]');
+
+function updateToc() {
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
+  });
+  tocLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateToc, { passive: true });
+updateToc();
+</script>
+</body>
+</html>
